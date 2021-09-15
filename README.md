@@ -27,53 +27,84 @@ To Run the application, use the default Run option in [IDEA](https://www.jetbrai
 
 ## Testing 
 
-With the aplication running we can test using the curl command doing a get request to the `/cars` endpoint.
+With the application running we can test using the curl command doing a get request to the `/cars` endpoint.
 
-To do this run:
+To list all the cars this run:
 
     curl localhost:8080/cars
   
 A result like the following will be returned to you:
 
-    [ {
-        "id" : {
-            "timestamp" : 1631582435,
-            "counter" : 16729557,
-            "time" : 1631582435000,
-            "machineIdentifier" : 5888057,
-            "processIdentifier" : 6193,
-            "timeSecond" : 1631582435,
-            "date" : 1631582435000
+    [
+      {
+        "id":{
+          "timestamp":1631706188,
+          "counter":10447889,
+          "machineIdentifier":7430267,
+          "processIdentifier":21328,
+          "timeSecond":1631706188,
+          "date":1631706188000,
+          "time":1631706188000
         },
-        "model" : "BMW X5 M",
-        "year" : 2010
-    }, {
-        "id" : {
-            "timestamp" : 1631582435,
-            "counter" : 16729559,
-            "time" : 1631582435000,
-            "machineIdentifier" : 5888057,
-            "processIdentifier" : 6193,
-            "timeSecond" : 1631582435,
-            "date" : 1631582435000
+        "model":"BMW X5 M",
+        "year":2010,
+        "fuel":99.9,
+        "idAsHex":"6141dc4c71607b53509f6c11"
+      },
+      {
+        "id":{
+          "timestamp":1631706188,
+          "counter":10447890,
+          "machineIdentifier":7430267,
+          "processIdentifier":21328,
+          "timeSecond":1631706188,
+          "date":1631706188000,
+          "time":1631706188000
         },
-        "model" : "2009 Cadillac CTS-V",
-        "year" : 2009
-    }, {
-        "id" : {
-            "timestamp" : 1631582435,
-            "counter" : 16729561,
-            "time" : 1631582435000,
-            "machineIdentifier" : 5888057,
-            "processIdentifier" : 6193,
-            "timeSecond" : 1631582435,
-            "date" : 1631582435000
+        "model":"2009 Cadillac CTS-V",
+        "year":2009,
+        "fuel":12.9,
+        "idAsHex":"6141dc4c71607b53509f6c12"
+      },
+      {
+        "id":{
+          "timestamp":1631706188,
+          "counter":10447891,
+          "machineIdentifier":7430267,
+          "processIdentifier":21328,
+          "timeSecond":1631706188,
+          "date":1631706188000,
+          "time":1631706188000
         },
-        "model" : "Bugatti Veyron 16.4 Grand Sport Vitesse",
-        "year" : 2012
-    }, 
-    ...
-    
+        "model":"Bugatti Veyron 16.4 Grand Sport Vitesse",
+        "year":2012,
+        "fuel":50,
+        "idAsHex":"6141dc4c71607b53509f6c13"
+      }
+     ...
+    ]
+
+To get a specific car use:
+
+    curl localhost:8080/cars/<idAsHex>
+
+To fuel up a specific car (update the fuel of the car to 99.9), we can use the following endpoint passing 
+idAsHex as parameter
+
+    curl -X POST localhost:8080/fuel-up/<idAsHex>
+
+
+To replace a car, we can use the following endpoint:
+
+    curl -X POST localhost:8080/replace -v \
+        -H "Content-Type: application/json" \
+        -d '{
+                "id":"<idAsHex>",
+                "model":"Nissan Kicks SL 1.6",
+                "year":2018,
+                "fuel":99.9
+            }' 
+
     
 
 
